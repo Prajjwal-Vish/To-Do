@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Search Results {% endblock title %}
+{% block body %}
+<div class="container">
+    <h1>Search Results for "{{ query }}"</h1>
+    {% if results %}
+        <table class="table">
+            <thead>
+                <tr class="todo-item">
+                    <th scope="col">Sno</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Desc</th>
+                    <th scope="col">Date-Time</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in results %}
+                <tr class="todo-item">
+                    <th scope="row">{{ todo.sno }}</th>
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.desc }}</td>
+                    <td>{{ todo.date_time }}</td>
+                    <td>
+                        <a href="/delete/{{ todo.sno }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                        <a href="/update/{{ todo.sno }}" class="btn btn-outline-warning btn-sm">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-warning">
+            No todos found matching "{{ query }}".
+        </div>
+    {% endif %}
+</div>
+{% endblock body %}
